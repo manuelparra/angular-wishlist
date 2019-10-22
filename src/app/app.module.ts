@@ -17,4 +17,5 @@ import { ListaDestinosComponent } from './lista-destinos/lista-destinos.componen
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
