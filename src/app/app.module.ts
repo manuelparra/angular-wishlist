@@ -13,7 +13,7 @@ import { FormDestinoViajeComponent } from './form-destino-viaje/form-destino-via
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: ListaDestinosComponent },
-  { path: 'destino', component: DestinoDetalleComponent }
+  { path: 'destino/:id', component: DestinoDetalleComponent }
 ];
 
 @NgModule({

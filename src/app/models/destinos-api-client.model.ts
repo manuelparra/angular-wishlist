@@ -11,8 +11,12 @@ export class DestinosApiClient {
     this.destinos.push(d);
   }
 
-  getAll() {
+  getAll(): DestinoViaje[] {
     return this.destinos;
+  }
+
+  getById(id: string): DestinoViaje {
+    return this.destinos.filter(function(d) { return d.id.toString() == id; })[0];
   }
 }
  

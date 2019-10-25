@@ -20,6 +20,6 @@
       <span ngNonBindable>{{ PREFERIDO }}</span> <!-- ngNonBindable no ejecuta el código angular
                                                       en la sección de código donde es declarado -->
     </span>
-    <a [routerLink]="['/destino']">Ver detalle</a>
+    <a [routerLink]="['/destino', destino.id]">Ver detalle</a>
   </div>
 </div>
