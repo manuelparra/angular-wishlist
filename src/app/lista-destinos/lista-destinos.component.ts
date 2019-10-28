@@ -3,7 +3,6 @@ import { DestinoViaje } from './../models/destino-viaje.model'
 import { DestinosApiClient } from './../models/destinos-api-client.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.module';
-import { ElegidoFavoritoAction, NuevoDestinoAction } from '../models/destinos-viajes-state.model';
 
 @Component({
   selector: 'app-lista-destinos',
@@ -38,9 +37,5 @@ export class ListaDestinosComponent implements OnInit {
 
   elegido(e: DestinoViaje) {
     this.destinosApiClient.elegir(e);
-  }
-
-  getAll() {
-
   }
 }

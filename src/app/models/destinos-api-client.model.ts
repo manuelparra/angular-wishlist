@@ -1,5 +1,4 @@
 import { DestinoViaje } from './destino-viaje.model';
-import { Subject, BehaviorSubject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.module';
 import { ElegidoFavoritoAction, NuevoDestinoAction } from './destinos-viajes-state.model';
