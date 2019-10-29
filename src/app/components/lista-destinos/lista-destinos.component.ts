@@ -7,7 +7,8 @@ import { AppState } from '../../app.module';
 @Component({
   selector: 'app-lista-destinos',
   templateUrl: './lista-destinos.component.html',
-  styleUrls: ['./lista-destinos.component.scss']
+  styleUrls: ['./lista-destinos.component.scss'], 
+  providers: [DestinosApiClient]
 })
 export class ListaDestinosComponent implements OnInit {
   @Output() onItemAdded: EventEmitter<DestinoViaje>;
