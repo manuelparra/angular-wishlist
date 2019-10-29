@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DestinoViaje } from './destino-viaje.model';
 
@@ -71,7 +71,7 @@ export function reducerDestinosViajes(
     }
     case DestinosViajesActionTypes.ELEGIDO_FAVORITO: {
       state.items.forEach(x => x.setSelected(false));
-      let fav:DestinoViaje = (action as ElegidoFavoritoAction).destino;
+      const fav:DestinoViaje = (action as ElegidoFavoritoAction).destino;
       fav.setSelected(true);
       return {
         ...state,

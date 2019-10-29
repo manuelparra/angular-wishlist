@@ -7,14 +7,14 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class DestinosApiClient {
   destinos: DestinoViaje[] = [];
-  
-  constructor(private store: Store<AppState>) { 
+
+  constructor(private store: Store<AppState>) {
     this.store
       .select(state => state.destinos)
       .subscribe((data) => {
         console.log('destinos sub store');
         console.log(data);
-        this.destinos = data.items
+        this.destinos = data.items;
       });
     this.store
       .subscribe((data) => {
@@ -32,7 +32,7 @@ export class DestinosApiClient {
     this.store.dispatch(new ElegidoFavoritoAction(d));
   }
 
-  getById(id: string): DestinoViaje {
+  getById(id: String): DestinoViaje {
     return this.destinos.filter(function(d) { return d.id.toString() === id; })[0];
   }
 
