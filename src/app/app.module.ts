@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, InjectionToken } from '@angular/core';
+import { NgModule, InjectionToken, Injectable, APP_INITIALIZER } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { StoreModule as NgRxStoreModule, ActionReducerMap } from '@ngrx/store';
+import { StoreModule as NgRxStoreModule, ActionReducerMap, Store } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
@@ -15,7 +15,8 @@ import {
   DestinosViajesState, 
   initializeDestinosViajesState,  
   reducerDestinosViajes, 
-  DestinosViajesEffects
+  DestinosViajesEffects,
+  InitMyDataAction
 } from './models/destinos-viajes-state.model';
 import { LoginComponent } from './components/login/login/login.component';
 import { ProtectedComponent } from './components/protected/protected/protected.component';
@@ -26,10 +27,11 @@ import { VuelosMainComponentComponent } from './components/vuelos/vuelos-main-co
 import { VuelosMasInfoComponentComponent } from './components/vuelos/vuelos-mas-info-component/vuelos-mas-info-component.component';
 import { VuelosDetalleComponentComponent } from './components/vuelos/vuelos-detalle-component/vuelos-detalle-component.component';
 import { ReservasModule } from './reservas/reservas.module';
+import { HttpClientModule, HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 
-// inicio app config
+// init app config
 export interface AppConfig {
-  apiEndpoint: String;
+  apiEndpoint: string;
 }
 
 const APP_CONFIG_VALUE: AppConfig = {
@@ -37,8 +39,9 @@ const APP_CONFIG_VALUE: AppConfig = {
 };
 
 export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
-// fin app config
+// end app config
 
+// init routing
 export const  childrenRoutesVuelos: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
   { path: 'main', component: VuelosMainComponentComponent }, 
@@ -54,8 +57,9 @@ const routes: Routes = [
   { path: 'protected', component: ProtectedComponent, canActivate: [ UsuarioLogueadoGuard ] }, 
   { path: 'vuelos', component: VuelosComponentComponent, canActivate: [ UsuarioLogueadoGuard ], children: childrenRoutesVuelos }
 ];
+// end routing
 
-// redux init
+// init redux 
 export interface AppState {
   destinos: DestinosViajesState;
 }
@@ -67,7 +71,24 @@ const reducers: ActionReducerMap<AppState> = {
 let reducersInitialState = {
   destinos: initializeDestinosViajesState() 
 };
-// fin redux init
+// end redux
+
+// init app
+export function init_app(appLoadService: AppLoadService): () => Promise<any> {
+  return () => appLoadService.initializeDestinosViajesState();
+}
+
+@Injectable() 
+class AppLoadService {
+  constructor(private store: Store<AppState>, private http: HttpClient) { }
+  async initializeDestinosViajesState(): Promise<any> {
+    const headers: HttpHeaders = new HttpHeaders({ 'X-API-TOKE': 'token-seguridad' });
+    const req = new HttpRequest('GET', APP_CONFIG_VALUE.apiEndpoint + '/my', { headers: headers });
+    const response: any = await this.http.request(req).toPromise();
+    this.store.dispatch(new InitMyDataAction(response.body));
+  }
+}
+// end app
 
 @NgModule({
   declarations: [
@@ -92,11 +113,14 @@ let reducersInitialState = {
     EffectsModule.forRoot([DestinosViajesEffects]),
     StoreDevtoolsModule.instrument(),
     ReservasModule,
+    HttpClientModule
   ],
   providers: [
     AuthService, 
     UsuarioLogueadoGuard, 
-    { provide: APP_CONFIG, useValue: APP_CONFIG_VALUE }
+    { provide: APP_CONFIG, useValue: APP_CONFIG_VALUE }, 
+    AppLoadService, 
+    { provide: APP_INITIALIZER, useFactory: init_app, deps: [AppLoadService], multi: true }
   ],
   bootstrap: [AppComponent]
 })
