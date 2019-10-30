@@ -5,6 +5,7 @@ import { fromEvent } from 'rxjs';
 import { map, filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { ajax, AjaxResponse } from 'rxjs/ajax';
 import { APP_CONFIG, AppConfig } from 'src/app/app.module';
+import { AnyFn } from '@ngrx/store/src/selector';
 
 @Component({
   selector: 'app-form-destino-viaje',
@@ -41,13 +42,8 @@ export class FormDestinoViajeComponent implements OnInit {
         filter(text => text.length > 2),
         debounceTime(200), 
         distinctUntilChanged(), 
-        switchMap(() => ajax('assets/datos.json'))
-      ).subscribe(AjaxResponse => {
-        this.searchResults = AjaxResponse.response 
-          .filter(function(x) {
-            return x.toLowerCase().includes(elemNombre.value.toLowerCase());
-          });
-      });
+        switchMap((text: String) => ajax(this.config.apiEndpoint + '/ciudades?q=' + text)) 
+      ).subscribe(AjaxResponse => this.searchResults = AjaxResponse.response);
   }
 
   guardar(nombre: string, url: string): boolean {
