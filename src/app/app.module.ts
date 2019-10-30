@@ -30,7 +30,7 @@ import { ReservasModule } from './reservas/reservas.module';
 import { HttpClientModule, HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import Dexie from 'dexie';
 import { DestinoViaje } from './models/destino-viaje.model';
-import { TranslateService, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable, from } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 

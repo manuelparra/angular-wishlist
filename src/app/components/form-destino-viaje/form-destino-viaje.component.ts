@@ -5,7 +5,6 @@ import { fromEvent } from 'rxjs';
 import { map, filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { ajax, AjaxResponse } from 'rxjs/ajax';
 import { APP_CONFIG, AppConfig } from 'src/app/app.module';
-import { AnyFn } from '@ngrx/store/src/selector';
 
 @Component({
   selector: 'app-form-destino-viaje',
