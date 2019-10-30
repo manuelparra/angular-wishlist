@@ -15,44 +15,45 @@ const APP_CONFIG_VALUE: AppConfig = {
 
 const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
 
-class DestinosApiClientDecorated extends DestinosApiClient {
-  constructor(@Inject(APP_CONFIG) private config: AppConfig, store: Store<AppState>) {
-    super(store);
-  }
-  getById(id: String): DestinoViaje {
-    console.log('llamando por la clase decorada!');
-    console.log('config: ' + this.config.apiEndpoint);
-    return super.getById(id);
-  }
-}
+//class DestinosApiClientDecorated extends DestinosApiClient {
+//  constructor(@Inject(APP_CONFIG) private config: AppConfig, store: Store<AppState>) {
+//    super(store);
+//  }
+//  getById(id: String): DestinoViaje {
+//    console.log('llamando por la clase decorada!');
+//    console.log('config: ' + this.config.apiEndpoint);
+//    return super.getById(id);
+//  }
+//}
 
-class DestinosApiClientViejo {
-  getById(id: String): DestinoViaje {
-    console.log('llamando por la clase vieja!');
-    return null;
-  }
-}
+//class DestinosApiClientViejo {
+//  getById(id: String): DestinoViaje {
+//    console.log('llamando por la clase vieja!');
+//    return null;
+//  }
+//}
 
 @Component({
   selector: 'app-destino-detalle',
   templateUrl: './destino-detalle.component.html',
   styleUrls: ['./destino-detalle.component.scss'], 
+  providers: [ DestinosApiClient ] 
   //providers: [
   //  { provide: DestinosApiClient, useClass: DestinosApiClientDecorated },
   //  { provide: DestinosApiClientViejo, useExisting: DestinosApiClient },
   //  { provide: APP_CONFIG, useValue: APP_CONFIG_VALUE }
   //]
-  providers: [
-    DestinosApiClient, 
-    { provide: DestinosApiClientViejo, useExisting: DestinosApiClient }
-  ]
+  //providers: [
+  //  DestinosApiClient, 
+  //  { provide: DestinosApiClientViejo, useExisting: DestinosApiClient }
+  //]
   //providers: [DestinosApiClient]
 })
 export class DestinoDetalleComponent implements OnInit {
   destino: DestinoViaje;
 
-  // constructor(private route: ActivatedRoute, private destinosApiClient: DestinosApiClient) {}
-  constructor(private route: ActivatedRoute, private destinosApiClient: DestinosApiClientViejo) {}
+  constructor(private route: ActivatedRoute, private destinosApiClient: DestinosApiClient) {}
+  //constructor(private route: ActivatedRoute, private destinosApiClient: DestinosApiClientViejo) {}
 
   ngOnInit() {
 	  let id = this.route.snapshot.paramMap.get('id');

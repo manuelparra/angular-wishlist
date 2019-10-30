@@ -41,9 +41,17 @@ export class FormDestinoViajeComponent implements OnInit {
         map((e: KeyboardEvent) => (e.target as HTMLInputElement).value), 
         filter(text => text.length > 2),
         debounceTime(200), 
-        distinctUntilChanged(), 
-        switchMap((text: String) => ajax(this.config.apiEndpoint + '/ciudades?q=' + text)) 
-      ).subscribe(AjaxResponse => this.searchResults = AjaxResponse.response);
+        distinctUntilChanged(),
+        switchMap(() => ajax('assets/datos.json'))
+      ).subscribe(AjaxResponse => {
+        this.searchResults = AjaxResponse.response;
+        this.searchResults = AjaxResponse.response 
+          .filter(function(x) {
+            return x.toLowerCase().includes(elemNombre.value.toLowerCase());
+          });
+      });
+        //switchMap((text: String) => ajax(this.config.apiEndpoint + '/ciudades?q=' + text)) 
+      //).subscribe(AjaxResponse => this.searchResults = AjaxResponse.response);
   }
 
   guardar(nombre: string, url: string): boolean {

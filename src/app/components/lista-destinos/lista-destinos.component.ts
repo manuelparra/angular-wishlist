@@ -8,14 +8,14 @@ import { AppState } from '../../app.module';
   selector: 'app-lista-destinos',
   templateUrl: './lista-destinos.component.html',
   styleUrls: ['./lista-destinos.component.scss'], 
-  providers: [DestinosApiClient]
+  providers: [ DestinosApiClient ]
 })
 export class ListaDestinosComponent implements OnInit {
   @Output() onItemAdded: EventEmitter<DestinoViaje>;
   updates: string[];
   all;
 
-  constructor(private destinosApiClient: DestinosApiClient, private store: Store<AppState>) {
+  constructor(public destinosApiClient: DestinosApiClient, private store: Store<AppState>) {
     this.onItemAdded = new EventEmitter();
     this.updates = [];
     this.store.select(state => state.destinos.favorito)
