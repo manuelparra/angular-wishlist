@@ -28,6 +28,8 @@ import { VuelosMasInfoComponentComponent } from './components/vuelos/vuelos-mas-
 import { VuelosDetalleComponentComponent } from './components/vuelos/vuelos-detalle-component/vuelos-detalle-component.component';
 import { ReservasModule } from './reservas/reservas.module';
 import { HttpClientModule, HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import Dexie from 'dexie';
+import { DestinoViaje } from './models/destino-viaje.model';
 
 // init app config
 export interface AppConfig {
@@ -90,6 +92,24 @@ class AppLoadService {
 }
 // end app
 
+// init dexie db 
+@Injectable({
+  providedIn: 'root'
+})
+
+export class MyDatabase extends Dexie {
+  destinos: Dexie.Table<DestinoViaje, number>;
+  constructor() {
+    super('MyDatabase');
+    this.version(1).stores({
+      destinos: '++id, nombre, imagenUrl'
+    });
+  }
+}
+
+export const db = new MyDatabase();
+// end daxie db
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -120,7 +140,8 @@ class AppLoadService {
     UsuarioLogueadoGuard, 
     { provide: APP_CONFIG, useValue: APP_CONFIG_VALUE }, 
     AppLoadService, 
-    { provide: APP_INITIALIZER, useFactory: init_app, deps: [AppLoadService], multi: true }
+    { provide: APP_INITIALIZER, useFactory: init_app, deps: [AppLoadService], multi: true }, 
+    MyDatabase
   ],
   bootstrap: [AppComponent]
 })
