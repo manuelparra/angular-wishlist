@@ -37,17 +37,16 @@ class DestinosApiClientViejo {
   selector: 'app-destino-detalle',
   templateUrl: './destino-detalle.component.html',
   styleUrls: ['./destino-detalle.component.scss'], 
-  providers: [
-    { provide: DestinosApiClient, useClass: DestinosApiClientDecorated },
-    { provide: DestinosApiClientViejo, useExisting: DestinosApiClient },
-    { provide: APP_CONFIG, useValue: APP_CONFIG_VALUE }
-  ]
   //providers: [
-  //  DestinosApiClient, 
-  //  { provide: DestinosApiClientViejo, useExisting: DestinosApiClient }
+  //  { provide: DestinosApiClient, useClass: DestinosApiClientDecorated },
+  //  { provide: DestinosApiClientViejo, useExisting: DestinosApiClient },
+  //  { provide: APP_CONFIG, useValue: APP_CONFIG_VALUE }
   //]
+  providers: [
+    DestinosApiClient, 
+    { provide: DestinosApiClientViejo, useExisting: DestinosApiClient }
+  ]
   //providers: [DestinosApiClient]
-  
 })
 export class DestinoDetalleComponent implements OnInit {
   destino: DestinoViaje;

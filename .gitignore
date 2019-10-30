@@ -8,6 +8,7 @@
 /bazel-out
 
 # dependencies
+#node_modules/ #este permite ignorar todos los node_modules anidades
 /node_modules
 
 # profiling files
