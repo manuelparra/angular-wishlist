@@ -34,6 +34,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable, from } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // init app config
 export interface AppConfig {
@@ -192,7 +193,8 @@ function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     HttpClientModule, 
-    NgxMapboxGLModule
+    NgxMapboxGLModule, 
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService, 
