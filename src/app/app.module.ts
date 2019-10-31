@@ -33,6 +33,7 @@ import { DestinoViaje } from './models/destino-viaje.model';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable, from } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 
 // init app config
 export interface AppConfig {
@@ -190,7 +191,8 @@ function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    HttpClientModule
+    HttpClientModule, 
+    NgxMapboxGLModule
   ],
   providers: [
     AuthService, 

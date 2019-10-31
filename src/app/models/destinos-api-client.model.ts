@@ -10,8 +10,8 @@ export class DestinosApiClient {
   destinos: DestinoViaje[] = [];
 
   constructor(
-    public store: Store<AppState>, 
-    @Inject(forwardRef(() => APP_CONFIG)) public config: AppConfig, 
+    private store: Store<AppState>, 
+    @Inject(forwardRef(() => APP_CONFIG)) private config: AppConfig, 
     private http: HttpClient 
   ) {
     this.store
