@@ -21,7 +21,8 @@
       *ngFor="let d of destinosApiClient.getAll(); let i = index"
       [destino]="d" 
       [idx]="i+1" 
-      (clicked)="elegido(d)">
+      (clicked)="elegido(d)" 
+      appEspiame>
     </app-destino-viaje>
   </div>
 
