@@ -15,13 +15,19 @@
       </li>
     </ul>
     <div>
-      <a href="#" (click)="voteUp()"><i class="material-icons md-18">thumb_up</i></a>
-      <a href="#" (click)="voteDown()"><i class="material-icons md-18">thumb_down</i></a>
+      <a href="#" (click)="voteUp()" appTrackearClick data-trackear-tags="destino_vote_up lista_destinos_item">
+        <i class="material-icons md-18">thumb_up</i>
+      </a>
+      <a href="#" (click)="voteDown()" appTrackearClick data-trackear-tags="destino_vote_down lista_destinos_item">
+        <i class="material-icons md-18">thumb_down</i>
+      </a>
       {{ destino.votes }}
-      <a href="#" (click)="voteReset()"><i class="material-icons md-18">autorenew</i></a>
+      <a href="#" (click)="voteReset()" appTrackearClick data-trackear-tags="destino_vote_reset lista_destinos_item">
+        <i class="material-icons md-18">autorenew</i>
+      </a>
       <br /><br />
     </div>
-    <a href="#" class="btn-card" (click)="ir()">Ir!</a>
+    <a href="#" class="btn-card" (click)="ir()" appTrackearClick data-trackear-tags="destino_elegir_preferido lista_destinos_item">Ir!</a>
     <!--<span [style.display]="destino.isSelected() ? '': 'none'">- PREFERIDO -</span>-->
     <span *ngIf="destino.isSelected()">
       <span ngNonBindable>{{ PREFERIDO }}</span> <!-- ngNonBindable no ejecuta el código angular
