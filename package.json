@@ -25,7 +25,7 @@
     "bootstrap": "^4.3.1",
     "core-js": "^3.3.4",
     "dexie": "^2.0.4",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "mapbox-gl": "^0.54.1",
     "ngx-mapbox-gl": "^4.1.0",
     "popper.js": "^1.16.0",
